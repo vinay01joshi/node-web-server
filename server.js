@@ -1,5 +1,6 @@
 const express = require('express');
 const hbs = require('hbs');
+var fs = require('fs');
 
 var app = express();
 
@@ -10,8 +11,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.use((req, res, next)=>{
     var now = new Date().toString();
-    
-    console.log(`${now}`);
+    var log = `${now} : ${req.method}${req.url}`;
+    fs.appendFile('server.log',log + '\n'); 
     next();
 });
 
